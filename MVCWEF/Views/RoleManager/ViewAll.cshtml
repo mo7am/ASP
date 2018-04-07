@@ -1,0 +1,93 @@
+﻿@model IEnumerable<MVCWEF.Models.User>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewAll</title>
+</head>
+<body>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                UserID
+            </th>
+            <th>
+                Fname
+            </th>
+            <th>
+                Lname
+            </th>
+            <th>
+                Email
+            </th>
+
+
+            <th>
+                Balance
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Address
+            </th>
+
+            <th>
+                Image
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID, new { id = "iduser" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+
+                <td>
+                    <img src="@Url.Content(item.Image)" width="100" height="100" />
+                </td>
+
+
+                <td>
+
+                   
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("Block", "RoleManager", new { id=@item.UserID})')"><i class="fa fa-pencil fa-lg"></i>Block</a>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEdit", "RoleManager", new { id=@item.UserID})')"><i class="fa fa-pencil fa-lg"></i>Charge Balance</a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete", "RoleManager", new { id = @item.UserID })')"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+
+</body>
+</html>

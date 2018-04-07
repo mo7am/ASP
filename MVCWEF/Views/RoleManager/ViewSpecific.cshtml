@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MVCWEF.Models.Product>
+
+@{
+    ViewBag.Title = "ViewSpecific";
+    Layout = "~/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<h2>ViewSpecific</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status.Status1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeUser.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Image)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.Status1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeUser.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProuductID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProuductID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProuductID })
+        </td>
+    </tr>
+}
+
+</table>

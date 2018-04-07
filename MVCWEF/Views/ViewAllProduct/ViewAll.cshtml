@@ -1,0 +1,82 @@
+﻿@using MVCWEF.Models;
+@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<Product>
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr class="success">
+
+                <th>
+                   ProductName
+                </th>
+                <th>
+                    Price
+                </th>
+
+                <th>
+                    Image
+                </th>
+
+                <th>
+                    Description
+                </th>
+
+                <th>
+                    If you want
+                </th>
+
+
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+
+                <td>
+                    <img src="@Url.Content(item.Image)" width="100" height="100" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    @Html.ActionLink(" Add To Cart", "OrderNow", "ShoppingCart", new { id = item.ProuductID }, null)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+
+    <div class="clear"></div>
+    @if (@Model.PageCount > 1)
+    {
+        <span> page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) /@Model.PageCount </span>
+        <div class="div-pagination">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+        </div>
+    }
+</body>
+</html>

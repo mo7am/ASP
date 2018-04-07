@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7a3b98d526a94939b9948fcabfe9e1f0" Name="Diagram1">
+        <EntityTypeShape EntityType="MvcCrudDBModel.Order" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.OrderDetail" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.Product" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.Status" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.TypeUser" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcCrudDBModel.User" Width="1.5" PointX="6" PointY="3" IsExpanded="true" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_OrderDetails_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_OrderDetails_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_Product_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_Product_TypeUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_User_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcCrudDBModel.FK_User_TypeUser" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

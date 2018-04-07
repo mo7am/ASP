@@ -1,0 +1,109 @@
+﻿@using MVCWEF.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h2>Check Out Shopping Card</h2>
+    @{
+        if (Session["Cart"] != null)
+        {
+            using (Html.BeginForm("UpdateCart", "ShoppingCart", FormMethod.Post))
+            {
+                <table class="table">
+                    <thead>
+                        <tr class="success">
+
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Price
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Sub Total
+                            </th>
+
+                            <th>
+                               Operation
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    @foreach (var cart in (List<Cart>)Session["Cart"])
+                    {
+
+                        <tr>
+                            <td>@cart.Product.ProductName</td>
+                            <td>$@cart.Product.Price</td>
+                            <td>
+                                <input type="text" name="quantity" id="quantity" value=" @cart.Quantity" />
+                                &nbsp; <span id="errmsg" style="color:red"> </span>
+                            </td>
+                            <td>$@(String.Format("{0:N0}", cart.Product.Price * cart.Quantity))</td>
+                            <td>
+                                @Html.ActionLink(" Delete", "Delete", "ShoppingCart", new { id = cart.Product.ProuductID }, new { onclick = "return confirm ('Are You Sure You Want To Dalete This')" })
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td colspan="3">Total:</td>
+                        <td>
+                            @{
+                                List<Cart> temp = (List<Cart>)Session["Cart"];
+                                var total = String.Format("{0:N0}", temp.Sum(x => x.Quantity * x.Product.Price));
+                            }
+                            $@total
+                        </td>
+                    </tr>
+
+                </table>
+                <br />
+                <input type="submit" value="Update Cart" />
+
+                @Html.ActionLink(" Check out", "CheckOut", "ShoppingCart", new { @class = "continue-shopping" })
+                @Html.ActionLink(" Check With Paypal", "PaymentWithPaypal", "ShoppingCart", new { @class = "continue-shopping" })
+            }
+        }
+
+        else
+        {
+            <h4> No Item In Your Cart !!!</h4>
+        }
+    }
+</body>
+</html>
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //called when key is pressed in textbox
+        $("#quantity").keypress(function (e) {
+            //if the letter is not digit , wh will display error message and don't allow them to type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //we will display error message
+                $("#errmsg").html("Enter Only Digit ! ").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+</script>

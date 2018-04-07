@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AllItemsForVisitor.cshtml";
+}
+<h1>To Purchase Any Item Please Go To Home To Sign in </h1>
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#firstTab">View All Drinks</a></li>
+    <li ><a data-toggle="tab" href="#secondTab">View All Food</a></li>
+</ul>
+<div class="tab-content">
+
+    <div id="firstTab" class="tab-pane fade in active">@Html.Action("ViewAllDrinks", "ItemsForVisitor")</div>
+    <div  id="secondTab" class="tab-pane fade in">@Html.Action("ViewAllFood", "ItemsForVisitor")</div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+
+    <script>
+        function activatejQueryTable() {
+            $("#employeeTable").DataTable();
+        }
+
+        $(function () {
+            activatejQueryTable();
+        });
+
+    </script>
+}

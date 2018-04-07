@@ -1,0 +1,99 @@
+﻿@model IEnumerable<MVCWEF.Models.Product>
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ViewAll</title>
+</head>
+<body>
+    </br>
+ @using (Html.BeginForm())
+ {
+     <p>
+         Product ID : @Html.TextBox("productid")
+         <input type="submit" value="Search"/>
+     </p>
+ }
+    </br>
+    <table class="table">
+        <tr>
+            <th>
+                Product ID
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Type
+            </th>
+
+            <th>
+                Description
+            </th>
+
+            <th>
+                Image
+            </th>
+
+            <th></th>
+        </tr>
+        @{
+                string Type = "";
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProuductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @{
+                        if (item.TypeID == 3)
+                        {
+                            Type = "Drinks";
+                        }
+                        else if (item.TypeID == 4)
+                        {
+                            Type = "Food";
+                        }
+                    }
+                    @Type
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+
+                <td>
+                    <img src="@Url.Content(item.Image)" width="100" height="100" />
+                </td>
+
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditProduct", "RoleManager", new { id=@item.ProuductID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("DeleteProduct", "RoleManager", new { id=@item.ProuductID})')"><i class="glyphicon glyphicon-trash"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+   
+</body>
+</html>
