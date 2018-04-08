@@ -677,6 +677,8 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\RoleManager\ViewAllProducts.cshtml" />
+    <Content Include="Views\Balance\SubmitSuccessfully.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

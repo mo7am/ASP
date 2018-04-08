@@ -2,7 +2,7 @@
 
 
 @{
-    Layout = null;
+    Layout ="~/Views/Shared/_MainLayout.cshtml" ;
 }
 
 <!DOCTYPE html>
@@ -14,13 +14,13 @@
 </head>
 <body>
     </br>
- @using (Html.BeginForm("SearchByID", "RoleManager", FormMethod.Get))
- {
-     <p>
-         Product ID : @Html.TextBox("productid" )
-         <input type="submit" value="Search" />
-     </p>
- }
+    @using (Html.BeginForm("SearchByID", "RoleManager", FormMethod.Get))
+    {
+        <p>
+            Product ID : @Html.TextBox("productid")
+            <input type="submit" value="Search" required="please enter id" />
+        </p>
+    }
     </br>
     <table class="table">
         <tr>
@@ -48,7 +48,7 @@
             <th></th>
         </tr>
         @{
-                string Type = "";
+            string Type = "";
         }
         @foreach (var item in Model)
         {
@@ -94,6 +94,6 @@
 
     </table>
 
-   
+
 </body>
 </html>

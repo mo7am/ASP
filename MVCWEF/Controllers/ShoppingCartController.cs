@@ -212,6 +212,8 @@ namespace MVCWEF.Controllers
                 using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
                 {
                     order.UserID = user.UserID;
+                    order.CustomerAddress = user.Address;
+                    order.CustomerPhone = user.Phone;
                     order.OrderDate = DateTime.Now;
                     order.PaymentType = "Paypal";
                     order.StatusID = 6;

@@ -310,48 +310,49 @@ namespace MVCWEF.Controllers
 
 
         
-        /*public ActionResult ViewAllProduct(string productid)
-         {
+       
+
+        public ActionResult SearchByID(int productid)
+        {
             try
             {
-                IQueryable<Product> products;
+                Product products=null;
                 using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
                 {
-                    products = from p in db.Products select p;
-
-                    if (!String.IsNullOrEmpty(productid))
+                    if (!String.IsNullOrEmpty(productid.ToString()))
                     {
-                        products = db.Products.Where(p => p.ProuductID == Int32.Parse(productid));
+                        products = (Product)db.Products.Find(productid);
                     }
-                
 
                 }
-                return View(products);
+                List<Product> P = new List<Product>();
+                P.Add(products);
+                return View("ViewAllProducts", P);
             }
-               
+
             catch (Exception e)
             {
                 throw;
             }
-            
-        }*/
+
+        }
 
         public ActionResult ViewAllProduct()
         {
-           
-                return View(GetAllProduct());
+
+            return View(GetAllProduct());
         }
 
-       /* public ActionResult ViewSpecific(int id)
-        {
-            using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
-            {
-                var products = db.Products.Where(p => p.ProuductID == id);
+        /* public ActionResult ViewSpecific(int id)
+         {
+             using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
+             {
+                 var products = db.Products.Where(p => p.ProuductID == id);
 
-                return View(products);
-            }
-            
-        }*/
+                 return View(products);
+             }
+
+         }*/
 
         IEnumerable<Product> GetAllProduct()
         {

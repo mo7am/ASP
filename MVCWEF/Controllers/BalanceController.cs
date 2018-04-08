@@ -83,5 +83,62 @@ namespace MVCWEF.Controllers
                 return View(orderdetails);
             }
         }
+
+        public ActionResult CheckBalance(int? page)
+        {
+            var pagenumber = page ?? 1;
+            var pagesize = 3;
+            int id = int.Parse(this.RouteData.Values["id"].ToString());
+            
+            var order = new Order();
+            List<double> Price = new List<double>();
+            double balance = 0.0;
+            double newbalance = 0.0;
+            double TotalPrice = 0.0;
+            var user = new User();
+           
+            MvcCrudDBEntities1 db = new MvcCrudDBEntities1();
+            
+              
+              order = (Order)db.Orders.Find(id);
+
+            IEnumerable<OrderDetail> orderdetails = db.OrderDetails.ToList().Where(orderdetail => orderdetail.OrderId == id);
+            foreach (var item in orderdetails)
+            {
+                Price.Add(item.TotalPrice.Value);
+            }
+            TotalPrice = Price.Sum(x => Convert.ToDouble(x));
+            user = (User)db.Users.Find(order.UserID);
+            balance = user.Balance.Value;
+
+            if (balance >= TotalPrice)
+            {
+                newbalance = balance - TotalPrice;
+                user.Balance = newbalance;
+                db.Users.Attach(user);
+                db.Entry(user).Property(x => x.Balance).IsModified = true;
+                db.SaveChanges();
+                order.StatusID = 5;
+                db.Orders.Attach(order);
+                db.Entry(order).Property(x => x.StatusID).IsModified = true;
+                db.SaveChanges();
+
+                return View("SubmitSuccessfully");
+            }
+            else
+            {
+
+                var viewModel =
+                     from pd in db.Orders
+                     join p in db.OrderDetails on pd.OrderId equals p.OrderId
+                     join Pr in db.Products on p.ProductId equals Pr.ProuductID
+                     join U in db.Users on pd.UserID equals U.UserID
+                     where pd.StatusID == 6
+                     select new MyViewModel { order = pd, orderdetails = p, products = Pr, users = U };
+
+                return View("IndexWaitingOrder", viewModel.OrderByDescending(orde => orde.order.OrderId).ToPagedList(pagenumber, pagesize));
+
+            }
+        }
     }
 }
