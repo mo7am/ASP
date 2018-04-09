@@ -100,6 +100,7 @@ namespace MVCWEF.Controllers
                     {
                         user.TypeID = 2;
                         user.StatusID = 2;
+                        user.Balance = 0.0;
                         dc.Users.Add(user);
                         dc.SaveChanges();
                         Session["User"] = user;

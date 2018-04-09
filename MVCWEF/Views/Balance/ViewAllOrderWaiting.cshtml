@@ -1,7 +1,7 @@
 ﻿@using MVCWEF.Models;
 @using PagedList;
 @using PagedList.Mvc;
-@model PagedList.IPagedList<MyViewModel>
+@model PagedList.IPagedList<Order>
 
 
 @{
@@ -20,9 +20,9 @@
     <table class="table">
         <thead>
             <tr class="success">
-               
+
                 <th>
-                    Name
+                    OrderID
                 </th>
                 <th>
                     OrderDate
@@ -37,23 +37,12 @@
                 <th>
                     Address
                 </th>
+
                 <th>
-                    Quantity
+                    More Details
                 </th>
                 <th>
-                    Total Price
-                </th>
-                <th>
-                    ProductName
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Image
-                </th>
-                <th>
-                    Check Balcnce
+                    Check Balance
                 </th>
 
             </tr>
@@ -62,47 +51,32 @@
         @foreach (var item in Model)
     {
         <tr>
-           
+
+
             <td>
-                @Html.DisplayFor(modelItem => item.users.Fname)
-                @Html.DisplayFor(modelItem => item.users.Lname)
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentType)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.order.OrderDate)
+                @Html.DisplayFor(modelItem => item.CustomerPhone)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.order.PaymentType)
+                @Html.DisplayFor(modelItem => item.CustomerAddress)
             </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.order.CustomerPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.order.CustomerAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.orderdetails.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.orderdetails.TotalPrice)
-            </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.products.ProductName)
+                @Html.ActionLink("Details", "Details", "Balance", new { id = item.OrderId }, null)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.products.Price)
+                @Html.ActionLink("Check", "CheckBalance", "Balance", new { id = item.OrderId }, null)
             </td>
-            <td>
-                <img src="@Url.Content(item.products.Image)" width="100" height="100" />
-            </td>
-
-            <td>
-                @Html.ActionLink("Check", "CheckBalance", "Balance", new {id = item.order.OrderId }, null)
-                <input type="submit" value="Check" />
-            </td>
-
         </tr>
 }
 

@@ -659,7 +659,6 @@
     <Content Include="Views\BalanceInfo\DetailsOrder.cshtml" />
     <Content Include="Views\Balance\IndexWaitingOrder.cshtml" />
     <Content Include="Views\Balance\ViewAllOrderWaiting.cshtml" />
-    <Content Include="Views\Balance\Details.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />
     <Content Include="Views\UserRole\ViewOldOrders.cshtml" />
     <Content Include="Views\RoleManager\Block.cshtml" />
@@ -679,6 +678,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\RoleManager\ViewAllProducts.cshtml" />
     <Content Include="Views\Balance\SubmitSuccessfully.cshtml" />
+    <Content Include="Views\Balance\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

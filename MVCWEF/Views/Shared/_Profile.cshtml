@@ -99,124 +99,187 @@
                                             <div class="h4 mt-0 title">Basic Information</div>
 
 
-                                            @using (Html.BeginForm("UpdateProfile", "RoleManager", FormMethod.Post))
-                        {
-                            @Html.HiddenFor(m => m.UserID);
-                    @Html.AntiForgeryToken()
-                    <hr />
-                    @Html.ValidationSummary(true)
+                                            <form id="myData">
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Fname, new { @class = "col-md-2 control-label", id = "Fname" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Fname, new { @class = "", id = "fname", @Value = user.Fname, @disabled = "disabled" })
-                            @Html.ValidationMessageFor(m => m.Fname)
-                        </div>
-                    </div>
+                                                @Html.HiddenFor(m => m.UserID);
+                                                @Html.AntiForgeryToken()
+                                                <hr />
+                                                @Html.ValidationSummary(true)
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Lname, new { @class = "col-md-2 control-label", id = "Lname" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Lname, new { @class = "", id = "lname", @Value = user.Lname, @disabled = "disabled" })
-                            @Html.ValidationMessageFor(m => m.Lname)
-                        </div>
-                    </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Fname, new { @class = "col-md-2 control-label", id = "Fname" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.Fname, new { @class = "", id = "fname", @Value = user.Fname, @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.Fname)
+                                                    </div>
+                                                </div>
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", id = "Email" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Email, new { @class = "", id = "email", @Value = user.Email, @disabled = "disabled" })
-                            @Html.ValidationMessageFor(m => m.Email)
-                        </div>
-                    </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Lname, new { @class = "col-md-2 control-label", id = "Lname" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.Lname, new { @class = "", id = "lname", @Value = user.Lname, @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.Lname)
+                                                    </div>
+                                                </div>
 
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label", id = "Phone" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Phone, new { @class = "", id = "phone", @Value = user.Phone, @disabled = "disabled" })
-                            @Html.ValidationMessageFor(m => m.Phone)
-                        </div>
-                    </div>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", id = "Email" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.Email, new { @class = "", id = "email", @Value = user.Email, @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.Email)
+                                                    </div>
+                                                </div>
 
 
 
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label", id = "Address" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Address, new { @class = "", id = "address", @Value = user.Address, @disabled = "disabled" })
-                            @Html.ValidationMessageFor(m => m.Address)
-                        </div>
-                    </div>
 
-                    <button onclick="change()" type="button" name="submit" class="btn btn-default">Edit Profile</button>
-
-                    <button onclick="changePassword()" type="button" name="submit" class="btn btn-default">Change Password</button>
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Phone, new { @class = "col-md-2 control-label", id = "Phone" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.Phone, new { @class = "", id = "phone", @Value = user.Phone, @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.Phone)
+                                                    </div>
+                                                </div>
 
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Update Profile" class="btn btn-default" />
-                        </div>
-                    </div>
+
+                                                <div class="form-group">
+                                                    @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label", id = "Address" })
+                                                    <div class="col-md-10">
+                                                        @Html.TextBoxFor(m => m.Address, new { @class = "", id = "address", @Value = user.Address, @disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.Address)
+                                                    </div>
+                                                </div>
+
+                                                <button onclick="change()" type="button" name="submit" class="btn btn-default">Edit Profile</button>
+
+                                                <button onclick="changePassword()" type="button" name="submit" class="btn btn-default">Change Password</button>
 
 
-}
+                                                <div class="form-group">
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                        <input type="button" value="Update Profile" class="btn btn-default" id="Save" />
+                                                    </div>
+                                                </div>
 
+                                            </form>
+                                            <link href="~/Scripts/jquery-ui.min.css" rel="stylesheet" />
+                                            <script src="~/profile/js11/core/jquery.3.2.1.min.js"></script>
+                                            <script>
+
+                                                $(document).ready(function () {
+
+                                                    $("#Save").click(function () {
+
+
+
+                                                        myData = $("#myData").serialize();
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: "/RoleManager/UpdateProfile",
+                                                            data: myData,
+                                                            success: function (response) {
+                                                                alert("Updated");
+
+                                                            }
+
+                                                        })
+
+                                                    })
+
+
+
+
+                                                })
+
+
+                                            </script>
 
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="card-body">
                                                     <div class="h4 mt-0 title"></div>
-                                                    @using (Html.BeginForm("UpdatePassword", "RoleManager", FormMethod.Post))
-                                {
-                                    <div class="row" id="test">
+                                                    <form id="mypassdata">
+                                                    <div class="row" id="test">
 
-                                        <div class="row mt-3">
-                                            <div class="col-sm-6"><strong id="CurrentPassword1" class="text-uppercase">Current Password :</strong></div>
-                                            <div class="col-sm-6"><input style="width: 250px" value="" id="CurrentPassword" type="password" name="CurrentPass"></div>
-                                        </div>
-
+                                                        <div class="row mt-3">
+                                                            <div class="col-sm-6"><strong id="CurrentPassword1" class="text-uppercase">Current Password :</strong></div>
+                                                            <div class="col-sm-6"><input style="width: 250px" value="" id="CurrentPassword" type="password" name="CurrentPass"></div>
+                                                        </div>
 
 
-                                        <div class="form-group" hidden="hidden" id="newpassid">
+
+                                                        <div class="form-group" hidden="hidden" id="newpassid">
 
 
-                                            <div class="col-sm-6">
-                                                @Html.LabelFor(m => m.Password, new { @class = " control-label", id = "NewPassword1" }):
-                                            </div>
-                                            <div class="col-sm-6">
-                                                @Html.PasswordFor(m => m.Password, new { @class = "", id = "NewPassword" })
-                                                @Html.ValidationMessageFor(m => m.Password)
-                                            </div>
+                                                            <div class="col-sm-6">
+                                                                @Html.LabelFor(m => m.Password, new { @class = " control-label", id = "NewPassword1" }):
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                @Html.PasswordFor(m => m.Password, new { @class = "", id = "NewPassword" })
+                                                                @Html.ValidationMessageFor(m => m.Password)
+                                                            </div>
 
-                                        </div>
-
-
-                                        <div class="form-group" hidden="hidden" id="confpassid">
+                                                        </div>
 
 
-                                            <div class="col-sm-6">
-                                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label", id = "ConfirmePassword1" })
-                                            </div>
-                                            <div class="col-sm-6">
-                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "", id = "ConfirmePassword" })
-                                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                                            </div>
+                                                        <div class="form-group" hidden="hidden" id="confpassid">
 
-                                        </div>
 
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Change" class="btn btn-default" hidden="hidden" id="buttonsave" />
-                                        </div>
-                                    </div>
-            }
+                                                            <div class="col-sm-6">
+                                                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = " control-label", id = "ConfirmePassword1" })
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "", id = "ConfirmePassword" })
+                                                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-10">
+                                                            <input type="button" value="Change" class="btn btn-default" hidden="hidden" id="buttonsave" />
+                                                        </div>
+                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
+                                <script>
+
+                                    $(document).ready(function () {
+
+                                        $("#buttonsave").click(function () {
+
+
+
+                                            myData = $("#mypassdata").serialize();
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/RoleManager/UpdatePassword",
+                                                data: myData,
+                                                success: function (response) {
+                                                    alert("Updated");
+
+                                                }
+
+                                            })
+
+                                        })
+
+
+
+
+                                    })
+
+
+                                </script>
 
 
                                 <script type="text/javascript">
@@ -372,7 +435,7 @@
                             </div>
                         </footer>
                         <script src="~/profile/js11/core/bootstrap.min.js"></script>
-                        <script src="~/profile/js11/core/jquery.3.2.1.min.js"></script>
+                        
                         <script src="~/profile/js11/core/popper.min.js"></script>
                         <script src="~/profile/js11/now-ui-kit.js"></script>
                         <script src="~/profile/js11/aos.js"></script>

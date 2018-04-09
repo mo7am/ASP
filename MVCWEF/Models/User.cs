@@ -29,29 +29,32 @@ namespace MVCWEF.Models
         public HttpPostedFileBase ImageUpload { get; set; }
 
         public int UserID { get; set; }
-        //[Required]
-        //[RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
         public string Fname { get; set; }
-        //[Required]
-        //[RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
         public string Lname { get; set; }
-        //[Required]
-        //[RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "someone@example.com	Validates an e-mail address")]
+        [Required]
+        [RegularExpression(@"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage = "someone@example.com	Validates an e-mail address")]
         public string Email { get; set; }
-        //[Required]
-        //[RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$", ErrorMessage = "Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Like --> Abcdef12")]
+        [Required]
+        [RegularExpression(@"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$", ErrorMessage = "Password must be at least 4 characters, no more than 8 characters, and must include at least one upper case letter, one lower case letter, and one numeric digit. Like --> Abcdef12")]
         public string Password { get; set; }
         //[Required]
         //[Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
         public string ConfirmPassword { get; set; }
-        public Nullable<double> Balance { get; set; }
         //[Required]
-        public string Phone { get; set; }
+        [RegularExpression(@"-?\d+(?:\.\d+)?")]
+        public Nullable<double> Balance { get; set; }
+        [Required] 
+    [RegularExpression(@"(01)[0-9]{9}")]
+    public string Phone { get; set; }
         public Nullable<int> TypeID { get; set; }
         public Nullable<int> StatusID { get; set; }
         public string Image { get; set; }
-        //[Required]
-        //[RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
         public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

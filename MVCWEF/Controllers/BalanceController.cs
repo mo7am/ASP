@@ -27,22 +27,15 @@ namespace MVCWEF.Controllers
         {
             var pagenumber = page ?? 1;
             var pagesize = 3;
-            using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
-            {
 
-                var viewModel =
-                    from pd in db.Orders
-                    join p  in db.OrderDetails on pd.OrderId equals p.OrderId 
-                    join Pr in db.Products on p.ProductId equals Pr.ProuductID
-                    join U  in db.Users on pd.UserID equals U.UserID
-                    where pd.StatusID == 6
-                    select new MyViewModel { order = pd, orderdetails = p , products = Pr , users = U};
+            MvcCrudDBEntities1 db = new MvcCrudDBEntities1();
+            
+                var order =  db.Orders.ToList().Where(o => o.StatusID == 6).ToPagedList(pagenumber, pagesize);
+            
 
-
-
-                return View(viewModel.OrderByDescending(order => order.order.OrderId).ToPagedList(pagenumber, pagesize));
+            return View(order);
             }
-        }
+        
 
 
         public Nullable<double> GetAllEmployee(int id)
@@ -65,30 +58,21 @@ namespace MVCWEF.Controllers
             }
 
         }
-        public ActionResult Details(int? id)
+        public ActionResult Details()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
-            {
-                var orderdetails = db.OrderDetails.Find(id);
-                if (orderdetails == null)
-                {
-                    return HttpNotFound();
-                }
-
-
-                return View(orderdetails);
-            }
+            Order order = new Order();
+            int id = int.Parse(this.RouteData.Values["id"].ToString()); //orderid
+           MvcCrudDBEntities1 db = new MvcCrudDBEntities1() ;
+            order = (Order)db.Orders.Find(id);               
+                return View(order);
+            
         }
 
         public ActionResult CheckBalance(int? page)
         {
             var pagenumber = page ?? 1;
             var pagesize = 3;
-            int id = int.Parse(this.RouteData.Values["id"].ToString());
+            int id = int.Parse(this.RouteData.Values["id"].ToString()); //orderid
             
             var order = new Order();
             List<double> Price = new List<double>();

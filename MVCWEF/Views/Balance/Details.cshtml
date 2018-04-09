@@ -1,52 +1,133 @@
-﻿@model IEnumerable<MVCWEF.Models.OrderDetail>
+﻿@model MVCWEF.Models.Order
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>More Details For Order</h2>
+</br>
 
+<div>
+    <h4>Order  : @Html.DisplayFor(model => model.OrderId)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate) :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentType) :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status) :
+        </dt>
+
+        <dd>
+
+
+            @Html.DisplayFor(model => model.Status)
+
+
+
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerPhone) :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAddress) :
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAddress)
+        </dd>
+
+
+
+    </dl>
+</div>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <table class="table">
+        <thead>
+            <tr class="success">
+                <th>
+                    Product Name :
+                </th>
+                <th>
+                    Quantity :
+                </th>
+                <th>
+                    Price :
+                </th>
+
+
+            </tr>
+        </thead>
+
+        @{
+            double notNullableDouble = 0.0;
+            List<double> sum = new List<double>();
+        }
+
+        @foreach (var item in Model.OrderDetails)
+        {
+        <tr>
+            <td>
+                @item.Product.ProductName
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                @item.TotalPrice
+            </td>
+
+           
+
+            @{
+
+
+
+        if (@item.TotalPrice.HasValue)
+        {
+            notNullableDouble = notNullableDouble + @item.TotalPrice.Value;
+        }
+
+
+
+            }
+        </tr>
+        }
+
+    </table>
+    Total Price For All Orders  :      @notNullableDouble
+</body>
+</html>
+<br /> <br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Back to List", "IndexWaitingOrder")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Order.PaymentType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Product.ProductName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalPrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Order.PaymentType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Product.ProductName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>

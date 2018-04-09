@@ -202,29 +202,30 @@ namespace MVCWEF.Controllers
                     var emp = db.Users.Where(x => x.UserID == usersession.UserID).FirstOrDefault<User>();
                     if (emp != null)
                     {
-                        emp.Fname = user.Fname;
-                        emp.Lname = user.Lname;
-                        emp.Email = user.Email;
-                        emp.Address = user.Address;
-                        emp.Phone = user.Phone;
-
                         usersession.Password = user.Password;
-                        usersession.Password = user.ConfirmPassword;
                         usersession.Balance = user.Balance;
                         usersession.StatusID = user.StatusID;
                         usersession.TypeID = user.TypeID;
                         usersession.Image = user.Image;
 
+                        emp.Fname = user.Fname;
+                        emp.Lname = user.Lname;
+                        emp.Email = user.Email;
+                        emp.Address = user.Address;
+                        emp.Phone = user.Phone;
+                        
                         db.SaveChanges();
                         Session["User"] = user;
                     }
                 }
-                return RedirectToAction("Profile", "Main");
+                return Json(new { message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+
             }
-             
+
 
             catch (DbEntityValidationException ex)
             {
+
                 // Retrieve the error messages as a list of strings.
                 var errorMessages = ex.EntityValidationErrors
                         .SelectMany(x => x.ValidationErrors)
@@ -238,6 +239,8 @@ namespace MVCWEF.Controllers
 
                 // Throw a new DbEntityValidationException with the improved exception message.
                 throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+
+
             }
 
            
@@ -275,10 +278,8 @@ namespace MVCWEF.Controllers
                 Session["User"] = user.Password;
                 Session["User"] = emp;
 
-                Console.Write("mohamed");
             }
-            Console.Write("salah");
-            return RedirectToAction("Profile", "Main");
+            return Json(new { message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
 
         }
 
