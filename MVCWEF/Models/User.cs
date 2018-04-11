@@ -22,6 +22,7 @@ namespace MVCWEF.Models
         {
             this.Orders = new HashSet<Order>();
             Image = "~/AppFiles/Images/default.png";
+            Balance = 0.0;
         }
 
 
@@ -56,7 +57,9 @@ namespace MVCWEF.Models
         [Required]
         [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
         public string Address { get; set; }
-    
+
+        public string CurrentPassword { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         public virtual Status Status { get; set; }

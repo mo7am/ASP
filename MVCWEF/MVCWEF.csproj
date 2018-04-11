@@ -185,7 +185,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountUserController.cs" />
     <Compile Include="Controllers\BalanceController.cs" />
-    <Compile Include="Controllers\BalanceInfoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\ItemsForVisitorController.cs" />
@@ -334,6 +333,19 @@
     <Content Include="assets1\js\modernizr.custom.js" />
     <Content Include="assets1\js\nagging-menu.js" />
     <Content Include="assets1\js\slippry.min.js" />
+    <Content Include="assets2\css\bootstrap.css" />
+    <Content Include="assets2\css\style-responsive.css" />
+    <Content Include="assets2\css\style.css" />
+    <Content Include="assets2\font-awesome\css\font-awesome.css" />
+    <Content Include="assets2\img\instagram.jpg" />
+    <Content Include="assets2\img\login-bg.jpg" />
+    <Content Include="assets2\img\ny.jpg" />
+    <Content Include="assets2\img\ui-sam.jpg" />
+    <Content Include="assets2\js\bootstrap.min.js" />
+    <Content Include="assets2\js\jquery.backstretch.min.js" />
+    <Content Include="assets2\js\jquery.js" />
+    <Content Include="assets2\style-responsive.css" />
+    <Content Include="assets2\style.css" />
     <Content Include="assets\color\default.css" />
     <Content Include="assets\css\bootstrap.css" />
     <Content Include="assets\css\style-responsive.css" />
@@ -571,6 +583,7 @@
     <Content Include="assets1\fonts\glyphicons-halflings-regular.eot%40" />
     <Content Include="assets1\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="assets1\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets2\font-awesome\fonts\fontawesome-webfont.ttf" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -654,9 +667,6 @@
     <Content Include="Views\RoleManager\AddOrEdit.cshtml" />
     <Content Include="Views\ViewAllProductDrinks\Index.cshtml" />
     <Content Include="Views\ViewAllProductDrinks\ViewAll.cshtml" />
-    <Content Include="Views\BalanceInfo\ViewAllOrderWaiting.cshtml" />
-    <Content Include="Views\BalanceInfo\IndexWaitingOrder.cshtml" />
-    <Content Include="Views\BalanceInfo\DetailsOrder.cshtml" />
     <Content Include="Views\Balance\IndexWaitingOrder.cshtml" />
     <Content Include="Views\Balance\ViewAllOrderWaiting.cshtml" />
     <Content Include="Views\UserRole\Index.cshtml" />

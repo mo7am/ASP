@@ -168,7 +168,7 @@ namespace MVCWEF.Controllers
             var transactionList = new List<Transaction>();
             transactionList.Add(new Transaction() {
 
-                description = "mohamed testing transaction description",
+                description = "This is All Money For All Product That You Purchase From Restraunt",
                 invoice_number = Convert.ToString((new Random()).Next(100000)),
                 amount = amount,
                 item_list = listItems
@@ -205,37 +205,7 @@ namespace MVCWEF.Controllers
             try
             {
 
-                MVCWEF.Models.Order order = new MVCWEF.Models.Order();
-                User user = new User();
-                user = (User)@Session["User"];
-                List<Cart> lsCart = (List<Cart>)Session[strCart];
-                using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
-                {
-                    order.UserID = user.UserID;
-                    order.CustomerAddress = user.Address;
-                    order.CustomerPhone = user.Phone;
-                    order.OrderDate = DateTime.Now;
-                    order.PaymentType = "Paypal";
-                    order.StatusID = 6;
-                    db.Orders.Add(order);
-                    db.SaveChanges();
-
-                }
-                foreach (Cart cart in lsCart)
-                {
-                    OrderDetail orderdetail = new OrderDetail()
-                    {
-
-                        OrderId = order.OrderId,
-                        ProductId = cart.Product.ProuductID,
-                        Quantity = cart.Quantity,
-                        TotalPrice = (double)cart.Product.Price * (double)cart.Quantity
-                    };
-                    db.OrderDetails.Add(orderdetail);
-                    db.SaveChanges();
-                }
-                Session.Remove(strCart);
-
+           
 
                 string payerId = Request.Params["PayerID"];
                 if(string.IsNullOrEmpty(payerId))
@@ -257,8 +227,44 @@ namespace MVCWEF.Controllers
                             paypalRedirectUrl = link.href;
                         }
                     }
+
+
+
+                    MVCWEF.Models.Order order = new MVCWEF.Models.Order();
+                    User user = new User();
+                    user = (User)@Session["User"];
+                    List<Cart> lsCart = (List<Cart>)Session[strCart];
+                    using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
+                    {
+                        order.UserID = user.UserID;
+                        order.CustomerAddress = user.Address;
+                        order.CustomerPhone = user.Phone;
+                        order.OrderDate = DateTime.Now;
+                        order.PaymentType = "Paypal";
+                        order.StatusID = 6;
+                        db.Orders.Add(order);
+                        db.SaveChanges();
+
+                    }
+                    foreach (Cart cart in lsCart)
+                    {
+                        OrderDetail orderdetail = new OrderDetail()
+                        {
+
+                            OrderId = order.OrderId,
+                            ProductId = cart.Product.ProuductID,
+                            Quantity = cart.Quantity,
+                            TotalPrice = ((double)cart.Product.Price * (double)cart.Quantity) + 3
+                        };
+                        db.OrderDetails.Add(orderdetail);
+                        db.SaveChanges();
+                    }
+                    Session.Remove(strCart);
+
                     Session.Add(guid, createdPayment.id);
                     return Redirect(paypalRedirectUrl);
+
+
                 }
                 else
                 {
@@ -276,6 +282,9 @@ namespace MVCWEF.Controllers
                 PaypalLogger.Log("Error :" + ex.Message);
                 return View("Failure");
             }
+
+       
+
 
             return View("Success");
         }

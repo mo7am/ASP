@@ -94,13 +94,13 @@ namespace MVCWEF.Controllers
 
                 using (MvcCrudDBEntities1 dc = new MvcCrudDBEntities1())
                 {
+                    double balance = 0.0;
                     //you should check duplicate registration here 
                     var dataItem = mde.Users.Where(x => x.Email.Equals(user.Email)).FirstOrDefault();
                     if (dataItem == null)
                     {
                         user.TypeID = 2;
                         user.StatusID = 2;
-                        user.Balance = 0.0;
                         dc.Users.Add(user);
                         dc.SaveChanges();
                         Session["User"] = user;
@@ -108,7 +108,7 @@ namespace MVCWEF.Controllers
                         if (ModelState.IsValid)
                         {
                             var senderEmail = new MailAddress("online.restruant@gmail.com", "Restruant Owner");
-                            var reciverEmail = new MailAddress(user.Email, user.Fname + user.Lname);
+                            var reciverEmail = new MailAddress(user.Email, user.Fname+ " " + user.Lname);
 
                             var password = "owner.restruant123";
                             var sub = "Online Restruant";

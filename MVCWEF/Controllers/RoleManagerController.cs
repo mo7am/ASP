@@ -19,7 +19,7 @@ namespace MVCWEF.Controllers
         }
 
 
-
+       
 
 
         /* public ActionResult ViewAll(int? page)
@@ -180,7 +180,70 @@ namespace MVCWEF.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult UpdateProfileImage(User user)
+        {
+            try
+            {
+                using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
+                {
 
+                    User usersession = new User();
+                    usersession = (User)@Session["User"];
+
+
+
+                    var emp = db.Users.Where(x => x.UserID == usersession.UserID).FirstOrDefault<User>();
+                    if (emp != null)
+                    {
+                        emp.Password = usersession.Password;
+                        emp.Balance = usersession.Balance;
+                        emp.StatusID = usersession.StatusID;
+                        emp.TypeID = usersession.TypeID;
+
+                        emp.Fname = usersession.Fname;
+                        emp.Lname = usersession.Lname;
+                        emp.Email = usersession.Email;
+                        emp.Address = usersession.Address;
+                        emp.Phone = usersession.Phone;
+
+                        emp.Image = user.Image;
+
+                        db.SaveChanges();
+
+
+
+                    }
+                    Session["User"] = emp;
+                }
+
+                return Json(new { message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+
+            }
+
+
+            catch (DbEntityValidationException ex)
+            {
+
+                // Retrieve the error messages as a list of strings.
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+
+
+            }
+
+
+        }
 
 
 
@@ -202,22 +265,27 @@ namespace MVCWEF.Controllers
                     var emp = db.Users.Where(x => x.UserID == usersession.UserID).FirstOrDefault<User>();
                     if (emp != null)
                     {
-                        usersession.Password = user.Password;
-                        usersession.Balance = user.Balance;
-                        usersession.StatusID = user.StatusID;
-                        usersession.TypeID = user.TypeID;
-                        usersession.Image = user.Image;
+                       emp.Password =  usersession.Password ;
+                       emp.Balance = usersession.Balance ;
+                       emp.StatusID =  usersession.StatusID ;
+                       emp.TypeID =  usersession.TypeID ;
+                       emp.Image = usersession.Image;
 
                         emp.Fname = user.Fname;
                         emp.Lname = user.Lname;
                         emp.Email = user.Email;
                         emp.Address = user.Address;
                         emp.Phone = user.Phone;
-                        
+
+                       
                         db.SaveChanges();
-                        Session["User"] = user;
+                       
+
+
                     }
+                    Session["User"] = emp;
                 }
+                
                 return Json(new { message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
 
             }
@@ -246,9 +314,30 @@ namespace MVCWEF.Controllers
            
         }
 
+        [HttpPost]
+        public ActionResult UpdatePassword( string CurrentPassword , string NewPassword)
+        {
+            MvcCrudDBEntities1 db = new MvcCrudDBEntities1();
+            User usersession = new User();
+            usersession = (User)@Session["User"];
+            
+                  if(CurrentPassword == usersession.Password)
+                {
+                    var emp = db.Users.Where(x => x.UserID == usersession.UserID).FirstOrDefault<User>();
+                    if (emp != null)
+                    {
+                        emp.Password = NewPassword;
+                        db.Entry(emp).State = EntityState.Modified;
+                        db.SaveChanges();
+                }
+                }
+                
+            return Json(new { message = "Submitted Successfully" }, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
-        public ActionResult UpdatePassword(User user)
+        public ActionResult UpdatePassword1(User user)
         {
             MvcCrudDBEntities1 db = new MvcCrudDBEntities1();
 
