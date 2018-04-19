@@ -93,34 +93,61 @@ namespace MVCWEF.Controllers
 
         public ActionResult ProcessOrder(MVCWEF.Models.Order order)
         {
+
             User user = new User();
             user = (User)@Session["User"];
             List<Cart> lsCart = (List<Cart>)Session[strCart];
-            using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
-            {
-                    order.UserID = user.UserID; 
-                    order.OrderDate = DateTime.Now;
-                    order.PaymentType = "Cash";
-                    order.StatusID = 6;
-                    db.Orders.Add(order);
-                    db.SaveChanges();
-               
-            }
+
+            double TotalPrices = 0.0;
+            double newbalance = 0.0;
+            double balance = 0.0;
             foreach (Cart cart in lsCart)
             {
-                OrderDetail orderdetail = new OrderDetail()
-                {
-                     
-                    OrderId = order.OrderId,
-                    ProductId = cart.Product.ProuductID,
-                    Quantity = cart.Quantity,
-                    TotalPrice = (double)cart.Product.Price * (double)cart.Quantity
-                };
-                db.OrderDetails.Add(orderdetail);
-                db.SaveChanges();
+                TotalPrices += (double)cart.Product.Price * (double)cart.Quantity;
             }
-            Session.Remove(strCart);
-            return View("OrderSuccess");
+            balance = user.Balance.Value;
+            if (user.Balance >= TotalPrices)
+            {
+
+                newbalance = balance - TotalPrices;
+                user.Balance = newbalance;
+                db.Users.Attach(user);
+                db.Entry(user).Property(x => x.Balance).IsModified = true;
+                db.SaveChanges();
+                Session["User"] = user;
+                using (MvcCrudDBEntities1 db = new MvcCrudDBEntities1())
+                {
+                    order.UserID = user.UserID;
+                    order.OrderDate = DateTime.Now;
+                    order.PaymentType = "Cash";
+                    order.StatusID = 5;
+                    db.Orders.Add(order);
+                    db.SaveChanges();
+
+                }
+
+                foreach (Cart cart in lsCart)
+                {
+                    OrderDetail orderdetail = new OrderDetail()
+                    {
+
+                        OrderId = order.OrderId,
+                        ProductId = cart.Product.ProuductID,
+                        Quantity = cart.Quantity,
+                        TotalPrice = (double)cart.Product.Price * (double)cart.Quantity
+                    };
+                    db.OrderDetails.Add(orderdetail);
+                    db.SaveChanges();
+                }
+               
+
+                Session.Remove(strCart);
+                return View("OrderSuccess");
+            }
+            else
+            {
+                return View("Failure");
+            }
         }
 
 

@@ -11,7 +11,8 @@ namespace MVCWEF.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Order
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +27,11 @@ namespace MVCWEF.Models
         public Nullable<System.DateTime> OrderDate { get; set; }
         public string PaymentType { get; set; }
         public Nullable<int> StatusID { get; set; }
+        [Required]
+        [RegularExpression(@"(01)[0-9]{9}")]
         public string CustomerPhone { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,100}$")]
         public string CustomerAddress { get; set; }
         public string Status { get; set; }
 

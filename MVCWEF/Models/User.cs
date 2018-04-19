@@ -49,8 +49,8 @@ namespace MVCWEF.Models
         [RegularExpression(@"-?\d+(?:\.\d+)?")]
         public Nullable<double> Balance { get; set; }
         [Required] 
-    [RegularExpression(@"(01)[0-9]{9}")]
-    public string Phone { get; set; }
+        [RegularExpression(@"(01)[0-9]{9}")]
+        public string Phone { get; set; }
         public Nullable<int> TypeID { get; set; }
         public Nullable<int> StatusID { get; set; }
         public string Image { get; set; }

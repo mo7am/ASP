@@ -111,12 +111,17 @@
                                                                 <li><a data-toggle="tab" href="#" onclick="convertpass()">Update Password</a></li>
                                                             </ul>
                                                         </th>
+                                                        <th>
+                                                            <ul class="nav nav-tabs">
+                                                                <li><a data-toggle="tab" href="#" onclick="convertpicture()">Update Picture</a></li>
+                                                            </ul>
+                                                        </th>
                                                     </tr>
                                                 <thead>
                                             </table>
 
 
-                                            <form id="myData" >
+                                            <form id="myData">
 
                                                 @Html.HiddenFor(m => m.UserID);
                                                 @Html.AntiForgeryToken()
@@ -203,7 +208,7 @@
                                                         })
 
                                                     })
-                                                    
+
 
                                                     $("#buttonsave").click(function () {
 
@@ -213,10 +218,9 @@
 
                                                         $.ajax({
                                                             type: "POST",
-                                                            url: "/RoleManager/UpdatePassword",
-                                                            data: myData,
+                                                            url: "/RoleManager/UpdatePassword?CurrentPasswordUser=" + document.getElementById("CurrentPasswordUser").value + "&NewPasswordUser=" + document.getElementById("NewPasswordUser").value,
                                                             success: function (response) {
-                                                                alert("Updated");
+                                                                alert(response);
 
                                                             }
 
@@ -225,18 +229,18 @@
                                                     })
 
 
-                                                    $("#SaveImage").click(function () {
+                                                    $("#buttonsavepicture").click(function () {
 
 
 
-                                                        myData = $("#updateimage").serialize();
+                                                        myData = $("#mypicture").serialize();
 
                                                         $.ajax({
                                                             type: "POST",
-                                                            url: "/RoleManager/UpdateProfileImage",
-                                                            data: myData,
+                                                            url: "/RoleManager/UpdateProfileImage?Picture=" + document.getElementById("Picture").value,
+                                                            
                                                             success: function (response) {
-                                                                alert("Updated");
+                                                                alert(response);
 
                                                             }
 
@@ -255,6 +259,9 @@
                                             <div class="col-lg-6 col-md-12">
                                                 <div class="card-body">
                                                     <div class="h4 mt-0 title"></div>
+
+
+
                                                     <form id="mypassdata" hidden="hidden">
                                                         <div class="row" id="test">
 
@@ -269,7 +276,7 @@
                                                                     @Html.LabelFor(m => m.CurrentPassword, new { @class = " control-label" }):
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    @Html.PasswordFor(m => m.Password, new { @class = "" , name="CurrentPassword" })
+                                                                    <input type="password" id="CurrentPasswordUser" />
                                                                     @Html.ValidationMessageFor(m => m.Password)
                                                                 </div>
 
@@ -283,7 +290,7 @@
                                                                     @Html.LabelFor(m => m.Password, new { @class = " control-label" })
                                                                 </div>
                                                                 <div class="col-sm-6">
-                                                                    @Html.PasswordFor(m => m.Password, new { @class = "",name="NewPassword" })
+                                                                    <input type="password" id="NewPasswordUser" />
                                                                     @Html.ValidationMessageFor(m => m.Password)
                                                                 </div>
 
@@ -292,12 +299,55 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="col-md-offset-2 col-md-10">
-                                                                <input type="button" value="Change" class="btn btn-default"  id="buttonsave" />
+                                                                <input type="button" value="Change" class="btn btn-default" id="buttonsave" />
                                                             </div>
                                                         </div>
                                                     </form>
                                                 </div>
                                             </div>
+
+
+
+
+
+
+                                            <div class="col-lg-6 col-md-12">
+                                                <div class="card-body">
+                                                    <div class="h4 mt-0 title"></div>
+
+
+
+                                                    <form id="mypicture" hidden="hidden">
+                                                        <div class="row" id="test">
+
+                                                            <div class="form-group">
+
+                                                               <div class="col-sm-6">
+                                                                    @Html.LabelFor(m => m.Image, new { @class = " control-label" })
+                                                                </div>
+                                                               <div class="col-sm-6">
+                                                                   <img src="" style="margin:10px" height="200" width="200" id="imagePreview" />
+                                                                   <input id="Picture" type="file" style="width:200px;border:5px" name="ImageUpload" accept="image/jpeg , image/png " onchange="ShowImagePreview(this, document.getElementById('imagePreview'))" />
+
+                                                                   @Html.ValidationMessageFor(m => m.Image)
+                                                               </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-offset-2 col-md-10">
+                                                                <input type="button" value="Change" class="btn btn-default" id="buttonsavepicture" />
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+
+
+
+
 
                                         </div>
                                     </div>
@@ -319,13 +369,19 @@
                                 function convertdata() {
                                     document.getElementById("mypassdata").hidden = true;
                                     document.getElementById("myData").hidden = false;
+                                    document.getElementById("mypicture").hidden = true;
                                 }
 
                                 function convertpass() {
                                     document.getElementById("mypassdata").hidden = false;
                                     document.getElementById("myData").hidden = true;
+                                    document.getElementById("mypicture").hidden = true;
+                                } 
+                                function convertpicture() {
+                                    document.getElementById("mypassdata").hidden = true;
+                                    document.getElementById("myData").hidden = true;
+                                    document.getElementById("mypicture").hidden = false;
                                 }
-
                         $(document).ready(function () {
                             //called when key is pressed in textbox
                             $("#CurrentPassword").keypress(function (e) {

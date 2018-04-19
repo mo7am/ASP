@@ -689,6 +689,7 @@
     <Content Include="Views\RoleManager\ViewAllProducts.cshtml" />
     <Content Include="Views\Balance\SubmitSuccessfully.cshtml" />
     <Content Include="Views\Balance\Details.cshtml" />
+    <Content Include="Views\RoleManager\IndexAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
